@@ -13,8 +13,8 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="navbar-nav mr-auto">
-			<span class="navbar-text">Guesses Left</span>
-		</div><span class="navbar-text"><i class="fa fa-trophy fa-lg"></i></span>
+			<span class="navbar-text"><span id="guessesLeft"></span>&nbsp;Guesses Left</span>
+		</div><span class="navbar-text"><i class="fa fa-trophy fa-lg"></i>&nbsp;&nbsp;<span id="wins"></span></span>
 	</nav>
 	<div class="container mt-3">
 		<div class="row">
@@ -23,9 +23,9 @@
 					<h1 class="display-3">Skier's Hangman</h1>
 					<p class="lead">Type a letter to start guessing!</p>
 					<hr class="my-4">
-					<p class="display-1">MYSTERIOUS WORD</p>
-					<hr class="my-4">
-					<p>Letters Guessed:</p>
+					<p class="display-1" id="letters"></p>
+					<!-- <hr class="my-4"> -->
+					<p>Letters Guessed:&nbsp;<span id="lettersGuessed"></span></p>
 				</div>
 			</div>
 		</div>

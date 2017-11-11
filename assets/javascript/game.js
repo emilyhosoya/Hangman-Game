@@ -24,17 +24,23 @@ console.log("The random word's characters: " + randomLetters);
 
 var randomBlanks = [];
 
+function showRandomBlanks() {
+    var randomBlankString = "";
+    for (var i = 0; i < randomBlanks.length; i++) {
+        randomBlankString += randomBlanks[i];
+    }
+    document.getElementById("letters").innerHTML = randomBlankString;
+}
 
 // if an item matches an item in alphabet array, then add '_' to randomBlanks
 // else if the character is a " ", add " " to randomBlanks
-
 for (var i = 0; i < randomLetters.length; i++) {
     if (alphabet.indexOf(randomLetters[i]) !== -1) {
         randomBlanks.push("_");
     } else {
         randomBlanks.push(" ");
     }
-    
+    showRandomBlanks();
 }
 
 console.log("The mysterious random word: " + randomBlanks);
@@ -45,12 +51,22 @@ var guessesLeft = 20;
 
 console.log("You have " + wins + " wins and " + guessesLeft + " guesses left.");
 
+function showWins() {
+    document.getElementById("wins").innerHTML = wins;
+}
+
+function showGuessesLeft() {
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+}
+
 
 var lettersGuessed = [];
 
 console.log("The letters you have guessed are: " + lettersGuessed);
 
-
+function showLettersGuessed() {
+    document.getElementById("lettersGuessed").innerHTML = lettersGuessed.toString();
+}
 
 
 
@@ -66,6 +82,7 @@ document.onkeyup = function(event) {
 
     // make sure the player submits a letter
     function isValidGuess() {
+
         if (alphabet.indexOf(currentGuess) !== -1) {
             console.log("Your guess: " + currentGuess);
             isCorrectGuess();
@@ -73,6 +90,7 @@ document.onkeyup = function(event) {
             console.log("That is not a letter!");
         }
     }
+
 
     // see if the letter is within the answer
     function isCorrectGuess() {
@@ -84,7 +102,8 @@ document.onkeyup = function(event) {
             matchingLetters.push(randomLetters.indexOf(randomLetters[i]));
             // change items at indices in randomBlanks to values at same indicies in randomLetters
             randomBlanks[i] = randomLetters[i];
-            } 
+            $("#letters").html(randomBlanks);
+            }
         }
 
         if (randomLetters.indexOf(currentGuess) !== -1) {
@@ -94,11 +113,14 @@ document.onkeyup = function(event) {
             lettersGuessed.push(currentGuess);
             console.log("The letters you have guessed are: " + lettersGuessed);
         }
+        showLettersGuessed();
 
         guessesLeft--;
         console.log("You have " + guessesLeft + " guesses left.");
         console.log("The mysterious random word: " + randomBlanks);
     }
+
+    showGuessesLeft();
 
     isValidGuess();
 
@@ -106,10 +128,16 @@ document.onkeyup = function(event) {
     if ((randomBlanks.indexOf("_") === -1) && (guessesLeft > 0)) {
         wins++;
         console.log("You win! Win count: " + wins + ". Press any key to play again.");
+
+        // fireworks and modal that says you win! play again? start game over without refreshing the browser
     } else if (guessesLeft === 0) {
         console.log("No win this time. Press any key to play again.");
+        // modal that says no win this time, press any key to play again. start game over without refreshing the browser
     }
 
 };
 
-
+window.onload = function() {
+    showWins();
+    showGuessesLeft();
+};

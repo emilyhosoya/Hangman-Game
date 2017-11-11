@@ -35,6 +35,10 @@ nav i {
     color: gold;
 }
 
+#guessesLeft {
+    font-weight: bold;
+}
+
 .jumbotron {
     background: rgba(255, 255, 255, 0.9);
     animation-duration: 1.5s;
