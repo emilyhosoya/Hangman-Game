@@ -1,0 +1,42 @@
+body {
+    background: url(../images/breckenridge-bg.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Unica One', cursive;
+    /* font-family: 'Megrim', cursive; */
+}
+
+.display-1 {
+    font-family: 'Amatic SC', cursive;
+}
+
+a:hover {
+    text-decoration: none
+}
+
+footer, footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-text {
+    color: rgba(255,255,255,1);
+}
+
+nav i {
+    color: gold;
+}
+
+.jumbotron {
+    background: rgba(255, 255, 255, 0.9);
+    animation-duration: 1.5s;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+}
+
