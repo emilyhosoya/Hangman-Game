@@ -11,9 +11,10 @@ var wordList = ["Arapahoe Basin", "Aspen Highlands", "Aspen Mountain", "Beaver C
 
 console.log("All possible words: " + wordList);
 
-
 // get random word
 var randomWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
+// TEST
+// var randomWord = "ABC";
 
 console.log("A word picked at random: " + randomWord);
 
@@ -70,6 +71,7 @@ function showLettersGuessed() {
 
 
 
+
 //////////// GAME PLAY ////////////
 
 console.log("Type a letter to begin guessing!");
@@ -108,6 +110,7 @@ document.onkeyup = function(event) {
 
         if (randomLetters.indexOf(currentGuess) !== -1) {
             console.log("Correct guess");
+            createFirework(62,136,5,4,null,null,null,null,true,true);            ;        
         } else {
             console.log("That letter is not part of the answer!");
             lettersGuessed.push(currentGuess);
@@ -127,17 +130,39 @@ document.onkeyup = function(event) {
     // if player guesses all letters, add 1 to wins
     if ((randomBlanks.indexOf("_") === -1) && (guessesLeft > 0)) {
         wins++;
+        showWins();
         console.log("You win! Win count: " + wins + ". Press any key to play again.");
 
-        // fireworks and modal that says you win! play again? start game over without refreshing the browser
+        // a bunch of fireworks!
+        var r = 4 + parseInt(Math.random()*16);
+        for (var i=r; i--;) {
+            setTimeout('createFirework(8,14,2,null,null,null,null,null,Math.random()>0.5,true)',(i+1) * (1+parseInt(Math.random()*1000)));
+        };
+
+        // set modal to say "You win! Play again?""
+        document.getElementById("gameEndMessage").innerHTML = "<p class='lead'>You win! Play again?</p>";
+        $('#gameEndModal').modal('show');
+
+    // no more guesses left
     } else if (guessesLeft === 0) {
         console.log("No win this time. Press any key to play again.");
-        // modal that says no win this time, press any key to play again. start game over without refreshing the browser
+        // set modal to say "No win this time. Play again?""
+
+        document.getElementById("gameEndMessage").innerHTML = "<p class='lead'>No win this time. Play again?</p>";
+        $('#gameEndModal').modal('show');
     }
 
+    // new game starts
+    document.getElementById("newGameButton").onclick = function() {
+        $('#gameEndModal').modal('hide');
+        guessesLeft = 20;
+        showGuessesLeft();
+        generateWord();
+    };
 };
 
 window.onload = function() {
     showWins();
     showGuessesLeft();
 };
+

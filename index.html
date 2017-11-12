@@ -2,15 +2,21 @@
 <html lang="en-us">
 <head>
 	<meta charset="UTF-8">
-    <title>Skier's Hangman</title>
-    <link rel="shortcut icon" href="./assets/images/favicon.ico" />
+	<title>Skier's Hangman</title>
+	<link href="./assets/images/favicon.ico" rel="shortcut icon">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Megrim|Unica+One|Amatic+SC:400,700" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
 	<link href="./assets/css/style.css" rel="stylesheet">
+	<link href="./assets/fireworks.js/style/fireworks.css" rel="stylesheet">
 </head>
 <body>
+	<div id="fireworks-template">
+		<div class="firework" id="fw"></div>
+		<div class="fireworkParticle" id="fp"><img alt="" src="./assets/fireworks.js/image/particles.gif"></div>
+	</div>
+	<div id="fireContainer"></div>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="navbar-nav mr-auto">
 			<span class="navbar-text"><span id="guessesLeft"></span>&nbsp;Guesses Left</span>
@@ -24,8 +30,8 @@
 					<p class="lead">Type a letter to start guessing!</p>
 					<hr class="my-4">
 					<p class="display-1" id="letters"></p>
-					<!-- <hr class="my-4"> -->
-					<p>Letters Guessed:&nbsp;<span id="lettersGuessed"></span></p>
+					<p>Letters Guessed:</p>
+					<p id="lettersGuessed"></p>
 				</div>
 			</div>
 		</div>
@@ -38,14 +44,28 @@
 				</div>
 			</div>
 		</div>
-	</footer>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+	</footer><!-- Modal -->
+	<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="gameEndModal" role="dialog" tabindex="-1">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content text-center py-4">
+				<div class="modal-body">
+					<button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+					<h2 class="display-4">Game Over!</h2><span id="gameEndMessage"></span> <button class="btn btn-primary" id="newGameButton" type="button">New Game</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript">
 	</script> 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" type="text/javascript">
 	</script> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" type="text/javascript">
 	</script> 
-	<script src="./assets/javascript/game.js">
+	<script src="./assets/fireworks.js/script/soundmanager2-nodebug-jsmin.js" type="text/javascript">
+	</script> 
+	<script src="./assets/fireworks.js/script/fireworks.js" type="text/javascript">
+	</script> 
+	<script src="./assets/javascript/game.js" type="text/javascript">
 	</script>
 </body>
 </html>

@@ -46,3 +46,10 @@ nav i {
     -moz-animation-duration: 1.5s;
 }
 
+.modal-header, .modal-footer {
+    border: transparent;
+}
+
+.btn-primary {
+    background-color: #0b80fd;
+}
