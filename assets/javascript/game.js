@@ -11,55 +11,61 @@ var wordList = ["Arapahoe Basin", "Aspen Highlands", "Aspen Mountain", "Beaver C
 
 console.log("All possible words: " + wordList);
 
-// get random word
-var randomWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
-// TEST
-// var randomWord = "ABC";
-
-console.log("A word picked at random: " + randomWord);
-
-// turn randomword into an array
-var randomLetters = randomWord.split('');
-
-console.log("The random word's characters: " + randomLetters);
-
-var randomBlanks = [];
-
-function showRandomBlanks() {
-    var randomBlankString = "";
-    for (var i = 0; i < randomBlanks.length; i++) {
-        randomBlankString += randomBlanks[i];
-    }
-    document.getElementById("letters").innerHTML = randomBlankString;
-}
-
-// if an item matches an item in alphabet array, then add '_' to randomBlanks
-// else if the character is a " ", add " " to randomBlanks
-for (var i = 0; i < randomLetters.length; i++) {
-    if (alphabet.indexOf(randomLetters[i]) !== -1) {
-        randomBlanks.push("_");
-    } else {
-        randomBlanks.push(" ");
-    }
-    showRandomBlanks();
-}
-
-console.log("The mysterious random word: " + randomBlanks);
-
-
+// wins
 var wins = 0;
-var guessesLeft = 20;
-
-console.log("You have " + wins + " wins and " + guessesLeft + " guesses left.");
 
 function showWins() {
     document.getElementById("wins").innerHTML = wins;
 }
 
+var guessesLeft = 10;
+
+console.log("You have " + wins + " wins and " + guessesLeft + " guesses left.");
+
+var randomBlanks = [];
+
 function showGuessesLeft() {
     document.getElementById("guessesLeft").innerHTML = guessesLeft;
 }
 
+function startGame() {
+
+    randomBlanks = [];
+
+    // get random word
+    var randomWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
+    // TEST
+    // var randomWord = "ABC";
+
+    console.log("A word picked at random: " + randomWord);
+
+    // turn randomword into an array
+    var randomLetters = randomWord.split('');
+
+    console.log("The random word's characters: " + randomLetters);
+
+    
+
+    function showRandomBlanks() {
+        var randomBlankString = "";
+        for (var i = 0; i < randomBlanks.length; i++) {
+            randomBlankString += randomBlanks[i];
+        }
+        document.getElementById("letters").innerHTML = randomBlankString;
+    }
+
+    // if an item matches an item in alphabet array, then add '_' to randomBlanks
+    // else if the character is a " ", add " " to randomBlanks
+    for (var i = 0; i < randomLetters.length; i++) {
+        if (alphabet.indexOf(randomLetters[i]) !== -1) {
+            randomBlanks.push("_");
+        } else {
+            randomBlanks.push(" ");
+        }
+        showRandomBlanks();
+    }
+
+    console.log("The mysterious random word: " + randomBlanks);
 
 var lettersGuessed = [];
 
@@ -79,8 +85,10 @@ console.log("Type a letter to begin guessing!");
 // store the indices of each matching letter
 var matchingLetters = [];
 
+var currentGuess = "";
+
 document.onkeyup = function(event) {
-    var currentGuess = event.key.toUpperCase();
+    currentGuess = event.key.toUpperCase();
 
     // make sure the player submits a letter
     function isValidGuess() {
@@ -108,17 +116,21 @@ document.onkeyup = function(event) {
             }
         }
 
-        if (randomLetters.indexOf(currentGuess) !== -1) {
+        if (((randomLetters.indexOf(currentGuess) !== -1) && (randomBlanks.indexOf(currentGuess) !== -1)) || (lettersGuessed.indexOf(currentGuess) !== -1)) {
+            console.log("You've already guessed that letter!");      
+        } else if (randomLetters.indexOf(currentGuess) !== -1) {
             console.log("Correct guess");
-            createFirework(62,136,5,4,null,null,null,null,true,true);            ;        
+            createFirework(62,136,5,4,null,null,null,null,true,true);   
+            guessesLeft--;     
         } else {
             console.log("That letter is not part of the answer!");
             lettersGuessed.push(currentGuess);
             console.log("The letters you have guessed are: " + lettersGuessed);
+            guessesLeft--;
         }
         showLettersGuessed();
 
-        guessesLeft--;
+        
         console.log("You have " + guessesLeft + " guesses left.");
         console.log("The mysterious random word: " + randomBlanks);
     }
@@ -157,11 +169,15 @@ document.onkeyup = function(event) {
         $('#gameEndModal').modal('hide');
         guessesLeft = 20;
         showGuessesLeft();
-        generateWord();
+        lettersGuessed = [];
+        showLettersGuessed();
+        startGame();
     };
+};
 };
 
 window.onload = function() {
+    startGame();
     showWins();
     showGuessesLeft();
 };
